@@ -10,14 +10,16 @@ set -e
 ignore_list_files=""
 ignore_list_files="$ignore_list_files class.phpmailer.php"
 ignore_list_files="$ignore_list_files finediff.php"
-ignore_list_files="$ignore_list_files jquery-1.12.3.min.js"
 
 # TODO(mvel): Move into config
 ignore_list_dirs=""
 # lesh-core
 ignore_list_dirs="$ignore_list_dirs /forum/"
 ignore_list_dirs="$ignore_list_dirs /bootstrap/"
+ignore_list_dirs="$ignore_list_dirs /bootstrap3/"
 ignore_list_dirs="$ignore_list_dirs /ace/"
+ignore_list_dirs="$ignore_list_dirs /design/"
+
 # dmvn.net
 ignore_list_dirs="$ignore_list_dirs .production/"
 
@@ -161,6 +163,17 @@ check_style()
         local ignore=""
         # skip ignored files
         ib="`basename $i`"
+
+        if echo $ib | grep -q '\.min\.js$' ; then
+            ignore="yes"
+            ignore_reason="minified js file"
+        fi
+
+        if echo $ib | grep -q '\.min\.css$' ; then
+            ignore="yes"
+            ignore_reason="minified css file"
+        fi
+
         for b in $ignore_list_files ; do
             if [ "$ib" == "$b" ] ; then
                 ignore="yes"
@@ -168,6 +181,7 @@ check_style()
                 break
             fi
         done
+
         for d in $ignore_list_dirs ; do
             if echo "$i" | grep -q "$d" ; then
                 ignore="yes"
