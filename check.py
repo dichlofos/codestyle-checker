@@ -24,6 +24,8 @@ _RE_HTML_ATTRIBUTES = re.compile(
 _FILE_EXPANSIONS = re.compile(r'\{[$a-zA-Z0-9._,-]*?\}')
 _JS_REGEXPS = re.compile(r'/[^/]+/\.test\(')
 
+_XCMS_TEMPLATES = re.compile(r'<#.+?#>')
+
 _LINE_ENDINGS = re.compile(r'^[^\x0A\x0D]+[\n]$')
 _LINE_ENDINGS_LAST = re.compile(r'^[^\x0A\x0D]+$')
 
@@ -81,6 +83,12 @@ def remove_strings(line):
 # removes JS-style regexps from code
 def remove_js_regexps(line):
     line = _JS_REGEXPS.sub('', line)
+    return line
+
+
+# removes XCMS template calls
+def remove_xcms_templates(line):
+    line = _XCMS_TEMPLATES.sub('', line)
     return line
 
 
@@ -170,6 +178,7 @@ def check_code_style(lines, file_type):
         line_cleanup = remove_html_attributes(line_cleanup)
         line_cleanup = remove_strings(line_cleanup)
         line_cleanup = remove_js_regexps(line_cleanup)
+        line_cleanup = remove_xcms_templates(line_cleanup)
         line_cleanup = remove_file_expansions(line_cleanup)
         line_cleanup = remove_commas_in_html(line_cleanup)
         line_cleanup = convert_operators(line_cleanup)
