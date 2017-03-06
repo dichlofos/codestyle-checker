@@ -49,19 +49,19 @@ def print_bad_context(lines, bad_lines):
     line_count = len(lines)
     skip = True
     for i in range(line_count):
-        l = lines[i].rstrip()
-        ln = i + 1
+        line = lines[i].rstrip()
+        line_no = i + 1
         if i in bad_lines:
             print '      ', bad_lines[i]
-            print '%3d > %s' % (ln, l)
+            print '{:3d} > {}'.format(line_no, line)
             skip = False
             continue
-        if (i+2) in bad_lines or (i+1) in bad_lines:
-            print '%3d   %s' % (ln, l)
+        if (i + 2) in bad_lines or (i + 1) in bad_lines:
+            print '{:3d}   {}'.format(line_no, line)
             skip = False
             continue
-        if (i-2) in bad_lines or (i-1) in bad_lines:
-            print '%3d   %s' % (ln, l)
+        if (i - 2) in bad_lines or (i - 1) in bad_lines:
+            print '{:3d}   {}'.format(line_no, line)
             skip = False
             continue
         if not skip:
