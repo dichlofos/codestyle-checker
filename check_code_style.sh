@@ -18,6 +18,8 @@ ignore_list_dirs=""
 ignore_list_dirs="$ignore_list_dirs /forum/"
 ignore_list_dirs="$ignore_list_dirs /bootstrap/"
 ignore_list_dirs="$ignore_list_dirs /ace/"
+ignore_list_dirs="$ignore_list_dirs /design/"
+
 # dmvn.net
 ignore_list_dirs="$ignore_list_dirs .production/"
 
