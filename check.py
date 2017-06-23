@@ -19,6 +19,7 @@ _RE_HTML_ATTRIBUTES = re.compile(
     r'value|action|method|enctype|accept|alt|src|target|type|language|title|'
     r'http-equiv|content|size|disabled|content|enum-type|row-id|color|'
     r'field-name|role|media|rel|autocomplete|align|aria-controls|aria-expanded|'
+    r'sizes|for|data-slide-to|'
     r'data-toggle|data-target|data-ride|role|aria-hidden|data-slide|lang|charset)="'
 )
 _FILE_EXPANSIONS = re.compile(r'\{[$a-zA-Z0-9._,-]*?\}')
@@ -96,6 +97,7 @@ def remove_xcms_templates(line):
 def remove_commas_in_html(line):
     # remove cases like 'some words,<br/>'
     line = _HTML_COMMAS.sub('', line)
+    line = line.replace('&nbsp;', ' ')
     return line
 
 
