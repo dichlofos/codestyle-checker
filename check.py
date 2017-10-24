@@ -42,7 +42,8 @@ _COMMA_END = re.compile(r',$')
 
 _UGLY_CONTROL = re.compile(r' ?(if|elseif|foreach|for|while)\(')
 
-_FORBIDDEN_OPS = re.compile(r'[^a-zA-Z_]empty\(')
+_EMPTY_BAD_OP = re.compile(r'[^a-zA-Z_]empty\(')
+_INCLUDE_ONCE_BAD_OP = re.compile(r'[^a-zA-Z_]include_once')
 _KEYVALUE_BAD_OP = re.compile(r'([^|+<>!.* ]=|=[^ >\n]|=>[^ ])')
 
 _FILE_EXT = re.compile(r'\.([a-z]+)$')
@@ -203,9 +204,13 @@ def check_code_style(lines, file_type):
 
         # forbidden PHP operators
         if file_type in common.PHP_FILES:
-            empty_op = _FORBIDDEN_OPS.search(line)
+            empty_op = _EMPTY_BAD_OP.search(line)
             if empty_op:
                 bad_lines.add("Operator 'empty' is forbidden for " + str(common.PHP_FILES) + " files", index)
+
+            include_once = _INCLUDE_ONCE_BAD_OP.search(line_cleanup)
+            if include_once:
+                bad_lines.add("Operator 'include_once' is forbidden for " + str(common.PHP_FILES) + " files", index)
 
             nsbe = _KEYVALUE_BAD_OP.search(line_cleanup)
             if nsbe:
