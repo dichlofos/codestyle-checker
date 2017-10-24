@@ -210,7 +210,7 @@ def check_code_style(lines, file_type):
 
             include_once = _INCLUDE_ONCE_BAD_OP.search(line_cleanup)
             if include_once:
-                bad_lines.add("Operator 'include_once' is forbidden for " + str(common.PHP_FILES) + " files", index)
+                bad_lines.add("Operator 'include_once' is forbidden for " + str(common.PHP_FILES) + " files. Use 'require_once' instead", index)
 
             nsbe = _KEYVALUE_BAD_OP.search(line_cleanup)
             if nsbe:
