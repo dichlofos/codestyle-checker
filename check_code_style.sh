@@ -19,6 +19,7 @@ ignore_list_dirs="$ignore_list_dirs /bootstrap/"
 ignore_list_dirs="$ignore_list_dirs /bootstrap3/"
 ignore_list_dirs="$ignore_list_dirs /ace/"
 ignore_list_dirs="$ignore_list_dirs /design/"
+ignore_list_dirs="$ignore_list_dirs /PHP-PasswordLib/"
 
 # dmvn.net
 ignore_list_dirs="$ignore_list_dirs .production/"
